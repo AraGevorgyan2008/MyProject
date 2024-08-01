@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Example</title>
+<!--    <link rel="stylesheet"-->
+<!--          href="/static/css/styles.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<style>
+    /* Reset some default browser styles */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    header {
+        background-color: #333;
+        color: #000000;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    header h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin: 0 1rem;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .hero {
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero .btn {
+        background-color: #ff6b6b;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .features {
+        padding: 2rem 0;
+        text-align: center;
+    }
+
+    .features h2 {
+        margin-bottom: 2rem;
+    }
+
+    .feature {
+        background-color: white;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .feature h3 {
+        margin: 1rem 0;
+    }
+
+    .contact {
+        background-color: #f2f2f2;
+        padding: 2rem 0;
+    }
+
+    .contact h2 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .contact form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .contact label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact input,
+    .contact textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .contact .btn {
+        background-color: #333;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        .hero {
+            padding: 2rem 0;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
+
+        .features {
+            padding: 1rem 0;
+        }
+
+        .features h2 {
+            font-size: 1.5rem;
+        }
+
+        .feature {
+            margin: 0.5rem 0;
+        }
+
+        .contact {
+            padding: 1rem 0;
+        }
+
+        .contact h2 {
+            font-size: 1.5rem;
+        }
+
+        footer {
+            position: static;
+        }
+    }
+    .container {
+        width: 120%;
+        margin: 0 auto;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .features .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .listitem {
+        /* Adjust the value as needed */
+
+        padding: 3px;
+        max-width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-sizing: border-box;
+        position: relative;
+        /* Применение трансформации */
+        transition: transform 0.3s ease;
+    }
+
+    /* Пример трансформации при наведении */
+    .listitem:hover {
+        transform:  scale(1.02) translateX(-5px) translateY(-5px);
+    }
+
+    .equalsize {
+        margin-left: 10px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .image-hover img {
+        width: 60%;
+        height: auto;
+        padding-top: 30px;
+    }
+
+    .img-opacity {
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+    }
+
+    .img-opacity:hover {
+        opacity: 1;
+    }
+
+    .hover-img:hover img {
+        transform: scale(1.05);
+    }
+
+    .item-body {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .item-body h3 {
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        font-size: 17px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .price .regular {
+        color: #020202;
+    }
+    .item-actions {
+        margin-top: 10px; /* Adjust the value as needed */
+    }
+    .oldprice-cont {
+        font-size: 12px;
+        padding-top: 10px;
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    .credit_calc_link a {
+        color: #0b588e;
+        text-decoration: none;
+        transition: color 0.3s ease;
+padding-top: 10px;
+    }
+
+    .credit_calc_link a:hover {
+        color: #1375b6;
+    }
+
+    .item_actions {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+
+    }
+
+    .item_actions a {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .item_actions a:hover {
+        background-color: #f1f1f1;
+        color: #000;
+
+    }
+
+    .item_actions .buy {
+        background-color: #2ecc71;
+        color: #fff;
+        position: absolute; /* Position it absolutely within the item-body */
+        bottom: 10px; /* Adjust this value for spacing from the bottom */
+        right: 10px; /* Adjust this value for spacing from the left */
+        margin-top: auto;
+    }
+
+    .item_actions .buy:hover {
+        background-color: #27ae60;
+    }
+
+    .label {
+        display: block;
+        font-size: 1em;
+        color: #fff;
+        background-color: #3498db;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-align: center;
+        width: fit-content;
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+    }
+
+    .label.available {
+        background-color: #2ecc71;
+
+    }
+
+</style>
+<body>
+<header class="p-3 text-bg-dark">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+            </form>
+
+
+            <form th:action="'/login'" method="get">
+                <button type="submit" class="btn btn-outline-light me-2">Login</button>
+            </form>
+
+            <form th:action="'/signing'" method="get">
+                <button type="submit" class="btn btn-warning">Sign-up</button>
+            </form>
+
+
+        </div>
+
+</header>
+<main>
+    <section id="features" class="features">
+
+        <div  class="container">
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/d2297c9f8941e53c846aNew_Project__11_.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/d2297c9f8941e53c846aNew_Project__11_.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/d2297c9f8941e53c846aNew_Project__11_.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/d2297c9f8941e53c846aNew_Project__11_.png" ></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/d2297c9f8941e53c846aNew_Project__11_.png">
+                    </a>
+                </div>
+                <span class="label available">Առկա է</span>
+                <div class="item-body">
+                    <h3>Xiaomi Redmi Note 13 6GB/128GB
+                        (Midnight Black)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>76,900 դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">85,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/88400f62bdc445aba1ceNew_Project__17_.png">
+                    </a>
+                </div>
+                <span class="label available">Առկա է</span>
+                <div class="item-body">
+                    <h3>Xiaomi Redmi 13 6GB/128GB
+                        (Ocean Blue)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>67,900դր</span>
+                        <div class="oldprice-cont">
+                            <span class="old">75,900 դր</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="2prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/f9e18f2016a7e3a7d499New_Project__14_.png">
+                    </a>
+                </div>
+                <span class="label available">Առկա է</span>
+                <div class="item-body">
+                    <h3>Xiaomi Redmi 13 6GB/128GB (Midnight Black)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>67,900դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">75,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="3prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/cf42e05f5fc712fea0d9New_Project.png">
+                    </a>
+                </div>
+                <span class="label available">Սահմանափակ  է</span>
+                <div class="item-body">
+                    <h3>Xiaomi Poco F6 Pro 12GB/512GB (Black)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>266,900դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old"> --------------------</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="4prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/40e2c66927bfdea61666sm-f956_zfold6_openback_pink_240422.png">
+                    </a>
+                </div>
+                <span class="label available">Նախապատվեր</span>
+                <div class="item-body">
+                    <h3>Samsung Galaxy Z Fold 6 512GB (Pink)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>797,900դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">886,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="5prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/c8da3af671172d606a37sm-f956_zfold6_openback_silver_shadow_240423.png">
+                    </a>
+                </div>
+                <span class="label available">Նախապատվեր</span>
+                <div class="item-body">
+                    <h3>Samsung Galaxy Z Fold 6 512GB (Silver Shadow)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>797,900դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">886,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="6prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png" data-load1="https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/c5af354be1f09c13a2f2%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82__7_.png">
+                    </a>
+                </div>
+                <span class="label available">Առկա է</span>
+                <div class="item-body">
+                    <h3>Samsung Galaxy S24 Ultra 512GB (Titanium Yellow)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>568,900դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">700,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="7prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img data-src="https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg" data-load1="https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" src="https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" data-ssrc="https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg" style="background-image: url(https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg);"></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" src="https://www.mobilecentre.am/img/prodpic/small/963b25a150dfd9f5d0731.jpg">
+                    </a>
+                </div>
+                <span class="label available">Սահմանափակ է</span>
+                <div class="item-body">
+                    <h3>iPhone 15 Pro Max 512GB (White Titanium)</h3>
+                    <div class="price">
+                        <span class="regular"><span data-toggle="modal" data-target="#different-price_30766" class="info"></span>638,900 դր.</span>
+                        <div class="oldprice-cont">
+                            <span class="old">709,900 դր.</span>
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="8prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+            <div th:each="el : ${phones}" class="listitem">
+                <div class="equalsize image-hover img-opacity hover-img">
+                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
+                        <img th:data-src="${el.imageURL}" th:data-load1="${el.imageURL}" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" th:src="${el.imageURL}" class="img-1">
+                        <div class="spans">
+                            <span class="forLoadCont" th:data-ssrc="${el.imageURL}" ></span>
+                        </div>
+                        <img alt="" class="load_-image" style="display:none;" th:src="${el.imageURL}">
+                    </a>
+                </div>
+                <span th:text="${el.role}" class="label available" ></span>
+                <div class="item-body">
+                    <h3 th:text="${el.Phone_Model}"></h3>
+                    <div class="price">
+                        <span class="regular"><span th:text="${el.new_price} + 'դր․'" data-toggle="modal" data-target="#different-price_30766" class="info"></span></span>
+                        <div class="oldprice-cont">
+                            <span th:text="${el.old_price} + 'դր․'" class="old" />
+                        </div>
+                    </div>
+                    <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                    <div class="item_actions">
+                        <a class="buy add-to-cart" onclick="saveProductBasket(30766, 1, 0, 0, 0, this)"><span class="ico"></span><span class="buylabel">Գնել</span></a>
+                    </div>
+                    <section style="display:none;" id="9prodCurCreditRullCont30766"></section>
+                </div>
+            </div>
+        </div>
+
+    </section>
+<!--    <section id="contact" class="contact">-->
+<!--        <div class="container">-->
+<!--            <h2>Contact Us</h2>-->
+<!--            <form>-->
+<!--                <label for="name">Name:</label>-->
+<!--                <input type="text" id="name" name="name" required>-->
+<!--                <label for="email">Email:</label>-->
+<!--                <input type="email" id="email" name="email" required>-->
+<!--                <label for="message">Message:</label>-->
+<!--                <textarea id="message" name="message" required></textarea>-->
+<!--                <button type="submit" class="btn">Send</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </section>-->
+</main>
+<!--<footer>-->
+<!--    <div class="container">-->
+<!--        <p>&copy; 2024 Mobile Website. All rights reserved.</p>-->
+<!--    </div>-->
+<!--</footer>-->
+</body>
+</html>
