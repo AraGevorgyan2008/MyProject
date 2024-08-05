@@ -362,7 +362,9 @@ padding-top: 10px;
         background-color: #2ecc71;
 
     }
-
+.yyy{
+    color: #ffffff;
+}
 </style>
 <body>
 <header class="p-3 text-bg-dark">
@@ -611,23 +613,28 @@ padding-top: 10px;
                     <section style="display:none;" id="8prodCurCreditRullCont30766"></section>
                 </div>
             </div>
+
             <div th:each="el : ${phones}" class="listitem">
                 <div class="equalsize image-hover img-opacity hover-img">
-                    <a class="prod-item-img" href="https://www.mobilecentre.am/product/xiaomi-redmi-note-13-6gb_128gb-_midnight-black_/30766/">
-                        <img th:data-src="${el.imageURL}" th:data-load1="${el.imageURL}" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" th:src="${el.imageURL}" class="img-1">
-                        <div class="spans">
-                            <span class="forLoadCont" th:data-ssrc="${el.imageURL}" ></span>
-                        </div>
-                        <img alt="" class="load_-image" style="display:none;" th:src="${el.imageURL}">
-                    </a>
+                    <form th:action="'/PhoneInfo'" method="post" class="prod-item-img">
+                       <input type="hidden" th:name="'id'" th:value="${el.id}">
+                        <button type="submit" style="border: none; background: none; padding: 0; margin: 0;">
+                            <img th:data-src="${el.imageURL}" th:data-load1="${el.imageURL}" data-load2="https://www.mobilecentre.am/img/prodpic/small/42c657967f20e2b68d99New_Project__12_.png" data-load3="https://www.mobilecentre.am/img/prodpic/small/423777b7bb6d77f81c31New_Project__13_.png" data-loadcount="4" th:src="${el.imageURL}" class="img-1" alt="Product Image">
+                        </button>
+                    </form>
+                    <div class="spans">
+                        <span class="forLoadCont" th:data-ssrc="${el.imageURL}"/>
+                    </div>
+                    <img alt="" class="load_-image" style="display:none;" th:src="${el.imageURL}">
                 </div>
-                <span th:text="${el.role}" class="label available" ></span>
+                <span th:text="${el.role}" class="label available"/>
+
                 <div class="item-body">
-                    <h3 th:text="${el.Phone_Model}"></h3>
+                    <h3 th:text="${el.Phone_Model}"/>
                     <div class="price">
                         <span class="regular"><span th:text="${el.new_price} + 'դր․'" data-toggle="modal" data-target="#different-price_30766" class="info"></span></span>
                         <div class="oldprice-cont">
-                            <span th:text="${el.old_price} + 'դր․'" class="old" />
+                            <span th:text="${el.old_price} + 'դր․'" class="old"></span>
                         </div>
                     </div>
                     <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
@@ -637,6 +644,7 @@ padding-top: 10px;
                     <section style="display:none;" id="9prodCurCreditRullCont30766"></section>
                 </div>
             </div>
+
         </div>
 
     </section>

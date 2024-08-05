@@ -24,6 +24,7 @@ public class SecurityConfig {
                                 .requestMatchers( "/verif").permitAll()
                                 .requestMatchers( "/verify_Admin").permitAll()
                                 .requestMatchers("/addPhone").permitAll()
+                                .requestMatchers("/PhoneInfo").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

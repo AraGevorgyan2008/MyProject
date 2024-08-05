@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Example</title>
+    <!--    <link rel="stylesheet"-->
+    <!--          href="/static/css/styles.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<style>
+    .details-block {
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .details-block .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .slider-and-short-descr {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .photoslider {
+        position: relative;
+    }
+
+    #myCarousel {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .carousel-inner .item img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
+    .slider-thumb {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .slider-thumb img {
+        display: block;
+        width: 66px;
+        height: 66px;
+        object-fit: cover;
+        border: 2px solid transparent;
+    }
+
+    .slider-thumb.active img,
+    .slider-thumb:hover img {
+        border-color: #007bff;
+    }
+
+    .label.available {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #28a745;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+
+    .details-descr {
+        padding-left: 20px;
+    }
+
+    .details-descr h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .details-descr .product-id {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 10px;
+    }
+
+    .details-descr .favorite,
+    .details-descr .compare {
+        display: inline-block;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .details-descr .rating-stars {
+        margin-bottom: 15px;
+    }
+
+    .rating-stars #stars {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .rating-stars .star {
+        cursor: pointer;
+        color: #ffc107;
+    }
+
+    .price-block {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .spinner {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .price {
+        font-size: 22px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .price .regular {
+        color: #151414;
+    }
+
+    .price .old {
+        text-decoration: line-through;
+        color: #aaa;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .credit-price {
+        margin-bottom: 15px;
+    }
+
+    .credit-item {
+        margin-bottom: 5px;
+    }
+
+    .credit-item span {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .credit-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .credit-item a:hover {
+        text-decoration: underline;
+    }
+
+    .short-descr {
+        margin-bottom: 20px;
+    }
+
+    .short-descr .dlabel {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .short-descr .value {
+        margin-bottom: 10px;
+    }
+
+    .short-descr .value a.color {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .short-descr .value a.color.selected {
+        border-color: #007bff;
+    }
+
+    .details-buy {
+        margin-bottom: 15px;
+    }
+
+    .details-buy a.buy,
+    .details-buy a.aparik {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .details-buy a.aparik {
+        background: #28a745;
+    }
+
+    .details-buy a.buy:hover,
+    .details-buy a.aparik:hover {
+        opacity: 0.8;
+    }
+
+    .payments img {
+        max-width: 100%;
+    }
+
+
+    .btn.btn-default i {
+        font-size: 16px;
+    }
+
+    .input-group-btn-vertical .btn {
+        border-radius: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 40px;
+    }
+
+    .input-group-btn-vertical .btn:active {
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    }
+    .carousel-inner .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
+    .slider-thumb {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .slider-thumb img {
+        display: block;
+        width: 66px;
+        height: 66px;
+        object-fit: cover;
+        border: 2px solid transparent;
+    }
+
+    .slider-thumb.active img,
+    .slider-thumb:hover img {
+        border-color: #007bff;
+    }
+
+    #largeImage {
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+    }
+    .carousel-inner .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+        margin-bottom: -65px;
+    }
+
+    .slider-thumb {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .slider-thumb img {
+        display: block;
+        width: 66px;
+        height: 66px;
+        object-fit: cover;
+        border: 2px solid transparent;
+    }
+
+    .slider-thumb.active img,
+    .slider-thumb:hover img {
+        border-color: #ffffff;
+    }
+
+    #largeImage {
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+    }
+    .seemore,
+    .no-highlight {
+        text-decoration: none;
+        color: inherit;
+        color: #0b588e;
+
+    }
+
+    .seemore:focus,
+    .no-highlight:focus {
+        outline: none;
+    }
+
+    .seemore:hover,
+    .no-highlight:hover {
+        color: #007bff; /* Change this color to match your design */
+        text-decoration: underline; /* Optional, if you want to show underline on hover */
+    }
+
+    .value {
+        display: inline-block;
+        margin-inline-start: 20px;
+        float: left;
+        color: #999;
+        width: 40%;
+        font-size: 13.5px;
+margin: -12px;
+    }
+
+    .dlabel {
+        display: flex;
+        align-items: center;
+        margin-inline-start: 100px;
+        font-weight: initial;
+           font-size: 15px;
+    }
+    .container {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 5px;
+
+    }
+    .color {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        display: inline-block;
+    }
+    .price-block {
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+    .price {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        color: #333333/* Space between price and credit link */
+    }
+    .regular {
+        margin-right: 10px; /* Adjust spacing as needed */
+    }
+    .credit_calc_link {
+        margin-top: 28px;
+        margin-inline-start: -195px;/* Space between price and credit link */
+    }
+
+</style>
+<script>
+    function changeImage(src, thumbnail) {
+        document.getElementById('largeImage').src = src;
+
+        // Update the active class on the thumbnails
+        var thumbnails = document.querySelectorAll('.slider-thumb');
+        thumbnails.forEach(function(thumbnail) {
+            thumbnail.classList.remove('active');
+        });
+
+        // Set active class to the clicked thumbnail's parent
+        thumbnail.parentNode.classList.add('active');
+    }
+
+
+</script>
+
+<body>
+<header class="p-3 text-bg-dark">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+
+        <form th:action="'/login'" method="get">
+            <button type="submit" class="btn btn-outline-light me-2">Login</button>
+        </form>
+
+        <form th:action="'/signing'" method="get">
+            <button type="submit" class="btn btn-warning">Sign-up</button>
+        </form>
+
+
+    </div>
+</header>
+<main>
+
+<div th:each="in : ${info}" class="details-block">
+    <div class="container">
+        <div class="slider-and-short-descr">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="photoslider">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href="#" data-toggle="modal" data-target="#bigimage">
+                                        <img id="largeImage" width="350" height="350" src="https://www.mobilecentre.am/img/prodpic/d2297c9f8941e53c846aNew_Project__11_.png">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="slider-thumb active">
+                                    <img onclick="changeImage('https://www.mobilecentre.am/img/prodpic/d2297c9f8941e53c846aNew_Project__11_.png', this)" width="66" height="66" th:src="'https://www.mobilecentre.am/img/prodpic/small/1377b1dabb460264ed6063aa34607831025a83cd1.jpg'" >
+                                </li>
+                                <li data-target="#myCarousel" data-slide-to="1" class="slider-thumb">
+                                    <img onclick="changeImage('https://www.mobilecentre.am/img/prodpic/42c657967f20e2b68d99New_Project__12_.png', this)" width="66" height="66" th:src="'https://www.mobilecentre.am/img/prodpic/42c657967f20e2b68d99New_Project__12_.png'">
+                                </li>
+                                <li data-target="#myCarousel" data-slide-to="2" class="slider-thumb">
+                                    <img onclick="changeImage('https://www.mobilecentre.am/img/prodpic/423777b7bb6d77f81c31New_Project__13_.png', this)" width="66" height="66" th:src="'https://www.mobilecentre.am/img/prodpic/423777b7bb6d77f81c31New_Project__13_.png'">
+                                </li>
+                            </ol>
+                            <span th:text="'Առկա է'" class="label available"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="details-descr">
+                        <h1 th:text="${in.Phone_Model}" />
+                        <div th:text="${in.id}" class="product-id"/>
+                        <a data-wish="0" onclick="saveProductWishlist(30766, 0, this)" class="favorite " data-toggle="tooltip" data-wisshitem="30766" title="Դիտված ապրանքներ"><span class="ico"></span></a>
+                        <a data-compare="0" onclick="saveProductComparelist(30766, 0, this)" class="compare " data-toggle="tooltip" data-compitem="30766" title="Համեմատել"><span class="ico"></span></a>
+                        <div class="price-block">
+                            <div class="price">
+                                <span class="regular" title="x_old = 85900 x_new = 76900"><span th:text="'37,900'" data-toggle="modal" data-target="#different-price_30766" class="info"></span></span>
+                                <span th:text="'41,900'" class="old" />
+                            </div>
+                            <div class="credit_calc_link"><a href="#" onclick="sendtopupu('Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)', '85,900', 85900, '85,900', 30766);" data-name="Xiaomi Redmi Note 13 6GB/128GB (Midnight Black)" data-price="85900" data-toggle="modal" data-target="#credit_calc_popup">Ապառիկ գին</a></div>
+                        </div>
+                        <div class="short-descr">
+                            <div class="container">
+                                <div class="value">Օպերատիվ հիշողություն</div>
+                                <div class="dlabel">6 GB</div>
+                            </div>
+                            <div class="container">
+                                <div class="value">Հիշողություն</div>
+                                <div class="dlabel">128 GB</div>
+                            </div>
+                            <div class="container">
+                                <div class="value">Հայտարարության տարին</div>
+                                <div class="dlabel">2024</div>
+                            </div>
+                            <div class="container">
+                                <div class="value">Առկա գույներ</div>
+                                <div class="dlabel">
+                                    <a href="https://www.mobilecentre.am/index.php?m=prod&amp;pid=30766" class="color selected" style="background:#000000;"></a>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <p><a href="#" class="seemore"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ավելի մանրամասն</a></p>
+                        <div class="details-buy">
+                            <a onclick="saveProductBasket(30766, prodCount.value, 0, 0, 0, this)" class="buy"><span class="ico"></span>Գնել</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</body>
+</html>
